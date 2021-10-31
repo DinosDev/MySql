@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use DinoDev\MySql\Classes\MySql;
 use DinoDev\MySql\Classes\Insert;
 use DinoDev\MySql\Classes\Create;
+use DinoDev\MySql\Classes\Drop;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
@@ -22,13 +23,14 @@ class InsertTest extends TestCase
     {
         //Create a Temporary Table
         $Create = new Create($this->MySql);
-        $Create->Table("TempTable", ["TestValue"], ["varchar(50)"]);
+        $Create->Table("Test", ["TestValue"], ["varchar(50)"]);
 
         //Insert
-        $this->assertTrue($this->Insert->Insert("TempTable", ["TestValue"], ["Hello"]));
+        $this->assertTrue($this->Insert->Insert("Test", ["TestValue"], ["Hello"]));
         $this->assertFalse($this->Insert->Insert("NoTable", [], []));
 
         //Delete the Temporary Table
-        $this->MySql->queryAndFetch("DROP TABLE temptable");        
+        $Drop = new Drop($this->MySql);
+        $Drop->Table("Test");     
     }
 }

@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use DinoDev\MySql\Classes\MySql;
 use DinoDev\MySql\Classes\Create;
+use DinoDev\MySql\Classes\Drop;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
@@ -20,15 +21,13 @@ class CreateTest extends TestCase
     public function testTable()
     {
         //Drop table, case exists
-        $this->dropTestTable();
+        $Drop = new Drop($this->MySql);
+        $Drop->Table("Test");
 
         $this->assertTrue($this->Create->Table("Test", ["Value 1", "Value 2"], ["varchar(20)", "varchar(20)"]));
 
         $this->assertFalse($this->Create->Table("Test", ["Value 1", "Value 2"], ["varchar(20)", "varchar(20)"]));        
-    }
-
-    public function dropTestTable()
-    {
-        $this->MySql->query("DROP TABLE Test");
+        
+        $Drop->Table("Test");
     }
 }

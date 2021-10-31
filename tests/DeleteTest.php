@@ -3,7 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use DinoDev\MySql\Classes\MySql;
 use DinoDev\MySql\Classes\Delete;
+use DinoDev\MySql\Classes\Drop;
 use DinoDev\MySql\Classes\Insert;
+use DinoDev\MySql\Classes\Create;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
@@ -18,19 +20,21 @@ class DeleteTest extends TestCase
         $this->Delete = new Delete($this->MySql);
 
         //Create a Temporary Table
-        $this->MySql->queryAndFetch("CREATE TABLE IF NOT EXISTS TempTable ( TestValue  varchar(50) )");
+        $Create = new Create($this->MySql);
+        $Create->Table("Test", ["TestValue"], ["varchar(50)"]);
     }
 
     protected function tearDown(): void
     {
         //Delete the Temporary Table
-        $this->MySql->queryAndFetch("DROP TABLE temptable");
+        $Drop = new Drop($this->MySql);
+        $Drop->Table("Test");
     }
 
     public function testAll()
     {
         //Delete
-        $this->assertTrue($this->Delete->All("TempTable"));
+        $this->assertTrue($this->Delete->All("Test"));
         $this->assertFalse($this->Delete->All("NoTable"));
     }
 
@@ -38,10 +42,10 @@ class DeleteTest extends TestCase
     {
         //Insert a Value
         $Insert = new Insert($this->MySql);
-        $Insert->Insert("TempTable", ["TestValue"], ["Hello"]);
+        $Insert->Insert("Test", ["TestValue"], ["Hello"]);
 
         //Delete
-        $this->assertTrue($this->Delete->Where("TempTable", "TestValue", "Hello"));
+        $this->assertTrue($this->Delete->Where("Test", "TestValue", "Hello"));
         $this->assertFalse($this->Delete->Where("NoTable", "TestValue", "Hello"));
     }
 
@@ -49,10 +53,10 @@ class DeleteTest extends TestCase
     {
         //Insert a Value
         $Insert = new Insert($this->MySql);
-        $Insert->Insert("TempTable", ["TestValue"], ["Hello"]);
+        $Insert->Insert("Test", ["TestValue"], ["Hello"]);
 
         //Delete
-        $this->assertTrue($this->Delete->Like("TempTable", "TestValue", "Hello"));
+        $this->assertTrue($this->Delete->Like("Test", "TestValue", "Hello"));
         $this->assertFalse($this->Delete->Like("NoTable", "TestValue", "Hello"));
     }
 }

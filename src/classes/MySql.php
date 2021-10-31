@@ -9,7 +9,7 @@ class MySql
     private string $password;
     private string $database;
 
-    protected \mysqli $mysqli;
+    public \mysqli $mysqli;
 
     function __construct(
         string $_hostname,

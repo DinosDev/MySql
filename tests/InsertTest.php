@@ -27,8 +27,6 @@ class InsertTest extends TestCase
         $this->assertFalse($this->Insert->Insert("NoTable", [], []));
 
         //Delete the Temporary Table
-        $this->MySql->queryAndFetch("DROP TABLE temptable");
-
-        
+        $this->MySql->queryAndFetch("DROP TABLE temptable");        
     }
 }

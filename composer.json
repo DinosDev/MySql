@@ -1,5 +1,5 @@
 {
-    "name": "dinodev/my-sql",
+    "name": "dinosdev/my-sql",
     "description": "Classes you can modify your MySql database even if you don't know sql",
     "type": "library",
     "license": "MIT",

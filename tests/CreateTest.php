@@ -1,9 +1,11 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use DinoDev\MySql\Classes\MySql;
-use DinoDev\MySql\Classes\Create;
-use DinoDev\MySql\Classes\Drop;
+use DinoDev\MySql\Classes\{
+    Create,
+    Drop,
+    MySql
+};
 
 require_once __DIR__ . "/../vendor/autoload.php";
 

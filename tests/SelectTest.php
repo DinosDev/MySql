@@ -1,8 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use DinoDev\MySql\Classes\MySql;
-use DinoDev\MySql\Classes\Select;
+use DinoDev\MySql\Classes\{
+    MySql,
+    Select
+};
 
 require_once __DIR__ . "/../vendor/autoload.php";
 

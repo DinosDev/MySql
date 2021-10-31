@@ -23,6 +23,8 @@ class SelectTest extends TestCase
     {
         $this->assertIsArray($this->Select->All("country"));
         $this->assertFalse($this->Select->All("NoTable"));
+
+        $this->assertCount(5, $this->Select->All("country", 5));
     }
 
     public function testWhere()
@@ -31,6 +33,8 @@ class SelectTest extends TestCase
         $this->assertEmpty($this->Select->Where("country", "Name", "Brasil"));
 
         $this->assertFalse($this->Select->Where("NoTable", "Name", "Brazil"));
+
+        $this->assertCount(5, $this->Select->Where("country", "Region", "South America", 5));
     }
 
     public function testLike()
@@ -38,6 +42,8 @@ class SelectTest extends TestCase
         $this->assertIsArray($this->Select->Like("country", "Name", "Braz"));
         $this->assertEmpty($this->Select->Like("country", "Name", "Bras"));
 
-        $this->assertFalse($this->Select->Like("NoTable", "Name", "Braz"));        
+        $this->assertFalse($this->Select->Like("NoTable", "Name", "Braz")); 
+        
+        $this->assertCount(5, $this->Select->Like("country", "Region", "th Ame", 5));       
     }
 }

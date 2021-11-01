@@ -70,6 +70,7 @@ $Select = new Select(
 //Select All
 $Select->All(
     "TableName" /* The Table Name */,
+    "Order By"   /* Order By (Optional) */,
     5           /* The Limit of Rows (Optional) */
 );
 
@@ -78,6 +79,7 @@ $Select->Where(
     "TableName" /* The Table Name */,
     "Field",    /* The Field Name */
     "Value",    /* Value */
+    "Order By"   /* Order By (Optional) */,
     5           /* The Limit of Rows (Optional) */
 );
 
@@ -86,6 +88,7 @@ $Select->Like(
     "TableName" /* The Table Name */,
     "Field",    /* The Field Name */
     "Value",    /* Value */
+    "Order By"   /* Order By (Optional) */,
     5           /* The Limit of Rows (Optional) */
 );
 ```
@@ -190,7 +193,8 @@ $Delete->Like(
 insertUsers($Insert);
 
 $Select->All("Users"); //Return All Users
-$Select->All("Users", 1); //Return Joe User (Limit 1)
+$Select->All("Users", "mail"); //Return All Users (Order By Mail)
+$Select->All("Users", limit: 1); //Return Joe User (Limit 1)
 
 $Select->Where(
     "Users",
@@ -223,5 +227,4 @@ function insertUsers(Insert $Insert)
         ["Michael",  "Michael@gmail.com", "leahciM", 19]
     ); //Return True
 }
-
 ```

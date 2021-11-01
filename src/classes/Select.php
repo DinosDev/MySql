@@ -13,30 +13,33 @@ class Select extends MySql
         $this->MySql = $_MySql;
     }
 
-    public function All(string $table, int $limit = null)
+    public function All(string $table, string $orderBy = null, int $limit = null)
     {
         $sql = "SELECT * FROM $table";
+        $sql .= $orderBy ? " ORDER BY " . $orderBy : "";
         $sql .= $limit ? " LIMIT $limit" : "";
 
         return $this->MySql->queryAndFetch($sql);
     }
 
-    public function Where(string $table, string $field, $value, int $limit = null)
+    public function Where(string $table, string $field, $value, string $orderBy = null, int $limit = null)
     {
         $valueCorrection = gettype($value) == "string" ? "'$value'" : $value;
 
         $sql = "SELECT * FROM $table WHERE $field = $valueCorrection";
+        $sql .= $orderBy ? " ORDER BY " . $orderBy : "";
         $sql .= $limit ? " LIMIT $limit" : "";
 
         return $this->MySql->queryAndFetch($sql);
     }
 
-    public function Like(string $table, string $field, $value, int $limit = null)
+    public function Like(string $table, string $field, $value, string $orderBy = null, int $limit = null)
     {
         $valueType = gettype($value);
 
         if ($valueType == "string") {
             $sql = "SELECT * FROM $table WHERE $field LIKE '%$value%'";
+            $sql .= $orderBy ? " ORDER BY " . $orderBy : "";
             $sql .= $limit ? " LIMIT $limit" : "";
 
             return $this->MySql->queryAndFetch($sql);

@@ -24,7 +24,10 @@ class SelectTest extends TestCase
         $this->assertIsArray($this->Select->All("country"));
         $this->assertFalse($this->Select->All("NoTable"));
 
-        $this->assertCount(5, $this->Select->All("country", 5));
+        $this->assertCount(5, $this->Select->All("country", limit:5));
+
+        $this->assertEquals("ABW", $this->Select->All("country", "Code", 2)[0]["Code"]);
+        $this->assertEquals("AFG", $this->Select->All("country", "Code", 2)[1]["Code"]);
     }
 
     public function testWhere()
@@ -34,7 +37,10 @@ class SelectTest extends TestCase
 
         $this->assertFalse($this->Select->Where("NoTable", "Name", "Brazil"));
 
-        $this->assertCount(5, $this->Select->Where("country", "Region", "South America", 5));
+        $this->assertCount(5, $this->Select->Where("country", "Region", "South America", limit:5));
+
+        $this->assertEquals("BRA", $this->Select->Where("country", "Code", "BRA", "Code", 2)[0]["Code"]);
+        $this->assertEquals("ARG", $this->Select->Where("country", "Code", "ARG", "Code", 2)[0]["Code"]);
     }
 
     public function testLike()
@@ -44,6 +50,9 @@ class SelectTest extends TestCase
 
         $this->assertFalse($this->Select->Like("NoTable", "Name", "Braz")); 
         
-        $this->assertCount(5, $this->Select->Like("country", "Region", "th Ame", 5));       
+        $this->assertCount(5, $this->Select->Like("country", "Region", "th Ame", limit:5));
+
+        $this->assertEquals("BRA", $this->Select->Like("country", "Code", "BRA", "Code", 2)[0]["Code"]);
+        $this->assertEquals("ARG", $this->Select->Like("country", "Code", "ARG", "Code", 2)[0]["Code"]);       
     }
 }
